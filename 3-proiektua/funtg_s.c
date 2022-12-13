@@ -13,7 +13,7 @@
 
 #include "definetg.h"		// konstante eta datu-egituren definizioak
 
-
+// comment
 
 /* 1 - Bi elementuren arteko distantzia genetikoa kalkulatzeko funtzioa 
        (distantzia euklidearra)
