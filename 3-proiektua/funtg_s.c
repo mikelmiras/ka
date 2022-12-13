@@ -33,7 +33,7 @@ double distantzia_genetikoa (float *elem1, float *elem2)
   for(i = 0 ; i < 40 ; i++ )
  {
    kenketa =  ( elem1 + i) - (elem2 + i);
-   gehiketa = gehiketa kenketa*kenketa;
+   gehiketa = gehiketa +  kenketa*kenketa;
  }
  return gehiketa; 
 }
@@ -54,7 +54,7 @@ void talde_gertuena (int elekop, float elem[][ALDAKOP], float zent[][ALDAKOP], i
 
   // EGITEKO
   // sailka: elementu bakoitzaren zentroide hurbilena, haren "taldea"
-
+  
 }
 
 
