@@ -29,7 +29,7 @@ double distantzia_genetikoa (float *elem1, float *elem2)
   // kalkulatu bi elementuren arteko distantzia (euklidearra)
   double  gehiketa = 0; 
   int i = 0; 
-  int kenketa = 0; 
+  double kenketa = 0; 
   for(i = 0 ; i < ALDAKOP ; i++ )
  {
    kenketa =  ( elem1 + i) - (elem2 + i);
