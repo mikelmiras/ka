@@ -24,18 +24,17 @@
 
 double distantzia_genetikoa (float *elem1, float *elem2)
 {
-   
+  int i = 0;  
   // EGITEKO
   // kalkulatu bi elementuren arteko distantzia (euklidearra)
-  double  gehiketa = 0; 
-  int i = 0; 
-  double kenketa = 0; 
-  for(i = 0 ; i < ALDAKOP ; i++ )
- {
-   kenketa =  ( elem1 + i) - (elem2 + i);
-   gehiketa = gehiketa +  kenketa*kenketa;
- }
- return gehiketa; 
+  double gehiketa = 0; 
+  double kenketa = 0;
+  for(i = 0; i < ALDAKOP; i++)
+  {
+    kenketa = (*elem1 + i) - (*elem2 + i);
+    gehiketa = gehiketa + (kenketa * kenketa);
+  } 
+  return kenketa;
 }
 
 
@@ -51,10 +50,19 @@ double distantzia_genetikoa (float *elem1, float *elem2)
 
 void talde_gertuena (int elekop, float elem[][ALDAKOP], float zent[][ALDAKOP], int *sailka)
 {
-
+	printf(elekop);
   // EGITEKO
   // sailka: elementu bakoitzaren zentroide hurbilena, haren "taldea"
-  
+        for (int i= 0; i < elekop; i++) {
+    double  minimoa = 999;
+   for (int j=0; j < taldekop; j++){
+      double unekoa = distantzia_genetikoa(&elem[i][0], &zent[j][0]);
+      if (unekoa < minimoa){
+        minimoa = unekoa;
+      }
+   } 
+    
+  }
 }
 
 
@@ -73,8 +81,7 @@ void talde_gertuena (int elekop, float elem[][ALDAKOP], float zent[][ALDAKOP], i
 double balidazioa (float elem[][ALDAKOP], struct taldeinfo *kideak, float zent[][ALDAKOP], float *talde_trinko)
 {
 
-  // EGITEKO
-
+  // EGITEo
 
   // Kalkulatu taldeen trinkotasuna: kideen arteko distantzien batezbestekoa
   // =======================================================================
