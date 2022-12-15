@@ -81,6 +81,7 @@ double balidazioa (float elem[][ALDAKOP], struct taldeinfo *kideak, float zent[]
 
   // Kalkulatu taldeen trinkotasuna: kideen arteko distantzien batezbestekoa
   // =======================================================================
+  /*
   int i = 0;
   int j = 0; 
   int gehiketa = 0;
@@ -91,7 +92,7 @@ double balidazioa (float elem[][ALDAKOP], struct taldeinfo *kideak, float zent[]
    {
      gehiketa = 0;
    }
-  }
+ }
 
   bbestekoa =  gehiketa / (taldekop * ALDAKOP);
 
@@ -104,8 +105,9 @@ double balidazioa (float elem[][ALDAKOP], struct taldeinfo *kideak, float zent[]
   // =====================
   
 
-
-  return 1; 
+*/
+  return 1;
+ 
 }
 
 
