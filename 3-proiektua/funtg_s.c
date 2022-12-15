@@ -50,24 +50,19 @@ double distantzia_genetikoa (float *elem1, float *elem2)
 
 void talde_gertuena (int elekop, float elem[][ALDAKOP], float zent[][ALDAKOP], int *sailka)
 {
-	printf(elekop);
+        printf("%d\n", elekop);
   // EGITEKO
-  // sailka: elementu bakoitzaren zentroide hurbilena, haren "taldea"
-        for (int i= 0; i < elekop; i++) {
-    double  minimoa = 999;
-   for (int j=0; j < taldekop; j++){
-      double unekoa = distantzia_genetikoa(&elem[i][0], &zent[j][0]);
-      if (unekoa < minimoa){
-        minimoa = unekoa;
-      }
-   } 
-    
-  }
-}
-
-
-
-
+  //  sailka: elementu bakoitzaren zentroide hurbilena, haren "taldea"
+    for (int i= 0; i < elekop; i++) {
+       double  minimoa = 999;
+       for (int j=0; j < taldekop; j++){
+         double unekoa = distantzia_genetikoa(&elem[i][0], &zent[j][0]);
+         if (unekoa < minimoa){
+            minimoa = unekoa;
+         }
+       }
+    }
+ }
 /* 3 - Egindako sailkapenaren balidazioa: taldeen trinkotasuna eta zentroideen trinkotasuna
        CVI indizea kalkulatzen da
 
@@ -81,12 +76,22 @@ void talde_gertuena (int elekop, float elem[][ALDAKOP], float zent[][ALDAKOP], i
 double balidazioa (float elem[][ALDAKOP], struct taldeinfo *kideak, float zent[][ALDAKOP], float *talde_trinko)
 {
 
-  // EGITEo
+  // EGITEKO
 
   // Kalkulatu taldeen trinkotasuna: kideen arteko distantzien batezbestekoa
   // =======================================================================
-  
-
+  int i = 0;
+  int j = 0; 
+  int gehiketa = 0;
+  int bbestekoa = 0; 
+  for( i =0 ; i< taldekop ;i++)
+  {
+   for(j = 0 ; j < ALDAKOP ; i++)
+   {
+     gehiketa = gehiketa + zent[i][j];
+   }
+  }
+  bb = gehiketa / (taldekop * ALDAKOP);
 
   // Kalkulatu zentroideen trinkotasuna: zentroideen arteko distantzien batezbestekoa
   // ================================================================================
