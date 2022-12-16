@@ -28,15 +28,16 @@ double distantzia_genetikoa (float *elem1, float *elem2)
   // EGITEKO
   //   // kalkulatu bi elementuren arteko distantzia (euklidearra)
      double gehiketa = 0;
-       for(i = 0; i < ALDAKOP; i++)
+     double kenketa = 0; 
+     for(i = 0; i < ALDAKOP; i++)
          {
-             double kenketa = *(elem1 + i) - *(elem2 + i);
-                 gehiketa = gehiketa + (kenketa * kenketa);
-                   }
+            kenketa = elem1[i] - elem2[i];                
+            gehiketa = gehiketa + (kenketa * kenketa);
+         }
 
-                     // Return the Euclidean distance
-                       return sqrt(gehiketa);
-                       }
+          // Return the Euclidean distance
+          return sqrt(gehiketa);
+}
                        
 
 
@@ -51,20 +52,24 @@ double distantzia_genetikoa (float *elem1, float *elem2)
 
 void talde_gertuena (int elekop, float elem[][ALDAKOP], float zent[][ALDAKOP], int *sailka)
 {
+  // EGITEKO
+  //  sailka: elementu bakoitzaren zentroide hurbilena, haren "taldea"
   int i =0;
   int j =0;
+  double unekoa = 0; 
   // EGITEKO
   //  sailka: elementu bakoitzaren zentroide hurbilena, haren "taldea" 
   for (i= 0; i < elekop; i++) {
        double  minimoa = 999;
-       for (j=0; j < taldekop; j++){
-         double unekoa = distantzia_genetikoa(&elem[i][0], &zent[j][0]);
+       for (j=0; j < elekop; j++){
+         unekoa = distantzia_genetikoa(&elem[i][0], &zent[j][0]);
          if (unekoa < minimoa){
             minimoa = unekoa;
          }
        }
  	*(sailka + i) = minimoa;
     }
+
  }
 /* 3 - Egindako sailkapenaren balidazioa: taldeen trinkotasuna eta zentroideen trinkotasuna
        CVI indizea kalkulatzen da
