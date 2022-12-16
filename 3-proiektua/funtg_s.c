@@ -24,19 +24,20 @@
 
 double distantzia_genetikoa (float *elem1, float *elem2)
 {
-  int i = 0;  
+  int i = 0;
   // EGITEKO
-  // kalkulatu bi elementuren arteko distantzia (euklidearra)
-  double gehiketa = 0; 
-  double kenketa = 0;
-  for(i = 0; i < ALDAKOP; i++)
-  {
-    kenketa = (*elem1 + i) - (*elem2 + i);
-    gehiketa = gehiketa + (kenketa * kenketa);
-  } 
-  return kenketa;
-}
+  //   // kalkulatu bi elementuren arteko distantzia (euklidearra)
+     double gehiketa = 0;
+       for(i = 0; i < ALDAKOP; i++)
+         {
+             double kenketa = *(elem1 + i) - *(elem2 + i);
+                 gehiketa = gehiketa + (kenketa * kenketa);
+                   }
 
+                     // Return the Euclidean distance
+                       return sqrt(gehiketa);
+                       }
+                       
 
 
 
@@ -50,18 +51,19 @@ double distantzia_genetikoa (float *elem1, float *elem2)
 
 void talde_gertuena (int elekop, float elem[][ALDAKOP], float zent[][ALDAKOP], int *sailka)
 {
-        printf("%d\n", elekop);
+  int i =0;
+  int j =0;
   // EGITEKO
   //  sailka: elementu bakoitzaren zentroide hurbilena, haren "taldea" 
-  for (int i= 0; i < elekop; i++) {
+  for (i= 0; i < elekop; i++) {
        double  minimoa = 999;
-       for (int j=0; j < taldekop; j++){
+       for (j=0; j < taldekop; j++){
          double unekoa = distantzia_genetikoa(&elem[i][0], &zent[j][0]);
          if (unekoa < minimoa){
             minimoa = unekoa;
          }
        }
-    *(sailka + i)  = minimoa; 
+ 	*(sailka + i) = minimoa;
     }
  }
 /* 3 - Egindako sailkapenaren balidazioa: taldeen trinkotasuna eta zentroideen trinkotasuna
@@ -82,32 +84,9 @@ double balidazioa (float elem[][ALDAKOP], struct taldeinfo *kideak, float zent[]
   // Kalkulatu taldeen trinkotasuna: kideen arteko distantzien batezbestekoa
   // =======================================================================
   /*
-  int i = 0;
-  int j = 0; 
-  int gehiketa = 0;
-  int bbestekoa = 0; 
-  for( i =0 ; i< taldekop ;i++)
-  {
-   for(j = 0 ; j < ALDAKOP ; j++)
-   {
-     gehiketa = 0;
-   }
- }
-
-  bbestekoa =  gehiketa / (taldekop * ALDAKOP);
-
-
-  // Kalkulatu zentroideen trinkotasuna: zentroideen arteko distantzien batezbestekoa
-  // ================================================================================
-    
-
-  // Kalkulatu CVI indizea
-  // =====================
-  
-
+Kalkulatu CVI indizea
+  // =================
 */
-  return 1;
- 
 }
 
 
