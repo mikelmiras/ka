@@ -10,12 +10,12 @@
 #include <stdlib.h>
 #include <math.h>
 #include <float.h>
-
+#include <stdio.h>
 #include "definetg.h"		// konstante eta datu-egituren definizioak
 
 // comment
 
-/* 1 - Bi elementuren arteko distantzia genetikoa kalkulatzeko funtzioa 
+/* 1 - Bi elementuren arteko distantzia genetikoa kalkulatzeko funtzioa
        (distantzia euklidearra)
 
        Sarrera:  ALDAKOP aldagaiko bi elementu (erreferentziaz)
@@ -28,17 +28,17 @@ double distantzia_genetikoa (float *elem1, float *elem2)
   // EGITEKO
   //   // kalkulatu bi elementuren arteko distantzia (euklidearra)
      double gehiketa = 0;
-     double kenketa = 0; 
+     double kenketa = 0;
      for(i = 0; i < ALDAKOP; i++)
          {
-            kenketa = elem1[i] - elem2[i];                
+            kenketa = elem1[i] - elem2[i];
             gehiketa = gehiketa + (kenketa * kenketa);
          }
 
           // Return the Euclidean distance
           return sqrt(gehiketa);
 }
-                       
+
 
 
 
@@ -61,13 +61,13 @@ void talde_gertuena (int elekop, float elem[][ALDAKOP], float zent[][ALDAKOP], i
   //  sailka: elementu bakoitzaren zentroide hurbilena, haren "taldea" 
   for (i= 0; i < elekop; i++) {
        double  minimoa = 999;
-       for (j=0; j < elekop; j++){
+       for (j=0; j < taldekop; j++){
          unekoa = distantzia_genetikoa(&elem[i][0], &zent[j][0]);
          if (unekoa < minimoa){
             minimoa = unekoa;
          }
        }
- 	*(sailka + i) = minimoa;
+ 	sailka[i] = minimoa;
     }
 
  }
@@ -88,14 +88,42 @@ double balidazioa (float elem[][ALDAKOP], struct taldeinfo *kideak, float zent[]
 
   // Kalkulatu taldeen trinkotasuna: kideen arteko distantzien batezbestekoa
   // =======================================================================
-  /*
-Kalkulatu CVI indizea
-  // =================
+  
+/*
+  int i = 0;
+  int j = 0; 
+  double gehiketa = 0;
+  double bb = 0;
+  double bbZentroide = 0; 
+  double cvi = 0; 
+ 
+  for( i =0 ; i< taldeinfo.kop ;i++)
+  {
+   for(j = 0 ; j < ALDAKOP ; j++)
+   {
+     gehiketa = gehiketa + zent[i][j];
+   }
+  }
+  bb = gehiketa / (taldeinfo.kop * ALDAKOP);
+  // Kalkulatu zentroideen trinkotasuna: zentroideen arteko distantzien batezbestekoa
+  // ================================================================================
+  gehiketa = 0;
+  for( i = 0; i < taldeinfo.kop;  i++)
+  {
+   for(j = 0; j < ALDAKOP; j++)
+   {
+    gehiketa =  gehiketa + zent[i][j];
+   }
+  }
+  bbZentroide = gehiketa / (taldeinfo.kop * ALDAKOP);
 */
+/*
+Kalkulatu CVI indizea
+ =================
+  */
+
+ 
 }
-
-
-
 
 /* 4 - Eritasunak analizatzeko funtzioa 
 
