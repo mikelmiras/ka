@@ -34,3 +34,6 @@ struct analisia   		// eritasunen analisiaren emaitzak
   int    taldemax, taldemin;  	// maximoko eta minimoko taldeak
 };
 
+
+
+

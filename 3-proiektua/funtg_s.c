@@ -57,17 +57,22 @@ void talde_gertuena (int elekop, float elem[][ALDAKOP], float zent[][ALDAKOP], i
   int i =0;
   int j =0;
   double unekoa = 0; 
+double dist = 0;
+double posizioa = 0;
   // EGITEKO
   //  sailka: elementu bakoitzaren zentroide hurbilena, haren "taldea" 
   for (i= 0; i < elekop; i++) {
-       double  minimoa = 999;
+	dist = distantzia_genetikoa(elem[i], zent[j]);
        for (j=0; j < taldekop; j++){
-         unekoa = distantzia_genetikoa(&elem[i][0], &zent[j][0]);
-         if (unekoa < minimoa){
-            minimoa = unekoa;
-         }
+        if ( dist > distantzia_genetikoa(elem[i], zent[j])){
+		dist = distantzia_genetikoa(elem[i], zent[j]);
+		posizioa = j;
+}
+	
+         
        }
- 	sailka[i] = minimoa;
+ 	sailka[i] = posizioa;
+posizioa = 0;
     }
 
  }
