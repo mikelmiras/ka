@@ -105,7 +105,7 @@ double balidazioa (float elem[][ALDAKOP], struct taldeinfo *kideak, float zent[]
 	   for(j = 0 ; j < kideak->kop ; j++)
    {
      gehiketa = gehiketa + distantzia_genetikoa(&zent[i][0], &elem[j][0]);
-     gehiketaZentroide = gehiketaZentroide + distantzia_genetikoa(&zent[i][0], &zent[j][0]);
+     gehiketaZentroide = gehiketaZentroide + distantzia_genetikoa(&zent[i][0], &zent[j][0])
      
    }
   }
@@ -114,14 +114,14 @@ double balidazioa (float elem[][ALDAKOP], struct taldeinfo *kideak, float zent[]
 // Kalkulatu zentroideen trinkotasuna: zentroideen arteko distantzien batezbestekoa
   // ================================================================================
 
-printf("Zentroideen BB: %f\n", bbZentroide);
+printf("Zentroideen BB: %f", bbZentroide);
 /*
 Kalkulatu CVI indizea
  =================
   */
 cvi = (bb / bbZentroide) * 100; 
-printf("CVI: %f\n", cvi); 
-
+printf("CVI: %f", cvi); 
+return 50.5;
 }
 
 /* 4 - Eritasunak analizatzeko funtzioa 
