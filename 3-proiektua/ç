@@ -67,7 +67,9 @@ double posizioa = 0;
         if ( dist > distantzia_genetikoa(elem[i], zent[j])){
 		dist = distantzia_genetikoa(elem[i], zent[j]);
 		posizioa = j;
-}       
+}
+	
+         
        }
  	sailka[i] = posizioa;
 posizioa = 0;
@@ -92,7 +94,7 @@ double balidazioa (float elem[][ALDAKOP], struct taldeinfo *kideak, float zent[]
   // Kalkulatu taldeen trinkotasuna: kideen arteko distantzien batezbestekoa
   // =======================================================================
   
-
+/*
   int i = 0;
   int j = 0; 
   double gehiketa = 0;
@@ -100,16 +102,15 @@ double balidazioa (float elem[][ALDAKOP], struct taldeinfo *kideak, float zent[]
   double bbZentroide = 0; 
   double cvi = 0; 
  
-  for( i =0 ; i< kideak->kop ;i++)
-	  {
-	   for(j = 0 ; j < kideak->kop ; j++)
+  for( i =0 ; i< taldeinfo.kop ;i++)
+  {
+   for(j = 0 ; j < ALDAKOP ; j++)
    {
-     gehiketa = gehiketa + distantzia_genetikoa(elem[i], elem[j]);
+     gehiketa = gehiketa + zent[i][j];
    }
   }
-  bb = gehiketa / (kideak->kop * ALDAKOP);
-		/*  
-// Kalkulatu zentroideen trinkotasuna: zentroideen arteko distantzien batezbestekoa
+  bb = gehiketa / (taldeinfo.kop * ALDAKOP);
+  // Kalkulatu zentroideen trinkotasuna: zentroideen arteko distantzien batezbestekoa
   // ================================================================================
   gehiketa = 0;
   for( i = 0; i < taldeinfo.kop;  i++)
