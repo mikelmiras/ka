@@ -84,39 +84,49 @@ double balidazioa (float elem[][ALDAKOP], struct taldeinfo *kideak, float zent[]
 {
 
   // EGITEKO
-
+	int n = 0;
+	double batuketa = 0;
+double batuketa_totala = 0;
   // Kalkulatu taldeen trinkotasuna: kideen arteko distantzien batezbestekoa
   // =======================================================================
-  
+  for ( int i = 0; i < taldekop; i++) {
+	batuketa_totala = 0;
+	for (int j = 0; j < kideak[i].kop; j++){
+	batuketa = 0;
+		for (int k = 0; k < kideak[i].kop; k++){
+		int elem1_ind  = kideak[i].osagaiak[j];
+		int elem2_ind = kideak[i].osagaiak[k];
+		batuketa = batuketa + distantzia_genetikoa(&elem[elem1_ind][0], &elem[elem2_ind][0]);
+		
+}
+	batuketa_totala = batuketa_totala + (batuketa / kideak[i].kop);
+}
+	if (kideak[i].kop > 0){
+	talde_trinko[i] = batuketa_totala / kideak[i].kop;
+}else{
+	talde_trinko[i] = 0;
+}
+}  
 
-  int i = 0;
-  int j = 0; 
-  double gehiketa = 0;
-  double bb = 0;
-  double bbZentroide = 0; 
-  double cvi = 0; 
-  double gehiketaZentroide = 0; 
-  for( i =0 ; i< kideak->kop ;i++)
-	  {
-	   for(j = 0 ; j < kideak->kop ; j++)
-   {
-     gehiketa = gehiketa + distantzia_genetikoa(&elem[i][0], &elem[j][0]);
-     gehiketaZentroide = gehiketaZentroide + distantzia_genetikoa(&zent[i][0], &zent[j][0]);
-     
-   }
-  }
-  bb = gehiketa / (kideak->kop * ALDAKOP);
-  bbZentroide = gehiketaZentroide / (kideak->kop*kideak->kop );
 // Kalkulatu zentroideen trinkotasuna: zentroideen arteko distantzien batezbestekoa
   // ================================================================================
+/*
+float zentroide_trinkotasuna[taldekop];
+for (int i = 0; i < taldekop; i ++){
+double batuketa = 0;
+for (int j = 0; j < taldekop; j++){
+	batuketa = batuketa + distantzia_genetikoa(&zent[i][0], &zent[j][0]);
 
-printf("Zentroideen BB: %f\n", bbZentroide);
+}
+
+zentroide_trinkotasuna[i] = batuketa / taldekop;
+}
+*/
 /*
 Kalkulatu CVI indizea
  =================
   */
-cvi = (bb / bbZentroide) * 100; 
-printf("CVI: %f\n", cvi); 
+
 
 }
 
