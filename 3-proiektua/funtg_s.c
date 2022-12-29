@@ -127,8 +127,23 @@ zentroide_trink[i] = zentroideen_batuketa / taldekop;
 Kalkulatu CVI indizea
  =================
   */
+float cvi = 0.0f;
+float batuketa_cvi = 0.0f;
+double max = 0;
+for (int i = 0; i < taldekop; i++){
+batuketa_cvi = 0;
+if (talde_trinko[i] > zentroide_trink[i]){
+max = talde_trinko[i];
+}else
+{
+max = zentroide_trink[i];
+}
+batuketa_cvi += zentroide_trink[i] - talde_trinko[i]/ max;
+cvi = (1/taldekop-1) * batuketa_cvi;
+// talde_trinko[i] = cvi; (?)
 
-
+printf("CVI: %f", cvi);
+}
 }
 
 /* 4 - Eritasunak analizatzeko funtzioa 
@@ -222,4 +237,14 @@ int zentroide_berriak (float elem[][ALDAKOP], float zent[][ALDAKOP], int *sailka
   }
 
   return (bukatu);
+}
+
+double max (double a, double b){
+if (a > b) {
+return a;
+}else{
+return b;
+}
+
+
 }
