@@ -110,18 +110,19 @@ double batuketa_totala = 0;
 
 // Kalkulatu zentroideen trinkotasuna: zentroideen arteko distantzien batezbestekoa
   // ================================================================================
-/*
-float zentroide_trinkotasuna[taldekop];
-for (int i = 0; i < taldekop; i ++){
-double batuketa = 0;
-for (int j = 0; j < taldekop; j++){
-	batuketa = batuketa + distantzia_genetikoa(&zent[i][0], &zent[j][0]);
+int i = 0;
+double zentroide_trink [taldekop];
+int j = 0;
+float zentroideen_batuketa = 0;
+for (i = 0; i < taldekop; i++){
+zentroideen_batuketa = 0;
+	for (j = 0; j < taldekop; j++){
+
+	zentroideen_batuketa += distantzia_genetikoa(&zent[i][0], &zent[j][0]);
+}
+zentroide_trink[i] = zentroideen_batuketa / taldekop;
 
 }
-
-zentroide_trinkotasuna[i] = batuketa / taldekop;
-}
-*/
 /*
 Kalkulatu CVI indizea
  =================
