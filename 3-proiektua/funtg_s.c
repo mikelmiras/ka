@@ -25,18 +25,14 @@
 double distantzia_genetikoa (float elem1[], float elem2[])
 {
   int i = 0;
+int batuketa = 0;
   // EGITEKO
   //   // kalkulatu bi elementuren arteko distantzia (euklidearra)
-     double gehiketa = 0;
-     double kenketa = 0;
-     for(i = 0; i < ALDAKOP; i++)
-         {
-            kenketa = elem1[i] - elem2[i];
-            gehiketa = gehiketa + (kenketa * kenketa);
-         }
-
-          // Return the Euclidean distance
-          return sqrt(gehiketa);
+     
+	for (i = 0; i < 40; i++){
+	batuketa += (elem1[i]-elem2[i])*(elem1[i]-elem2[i]);
+}
+return sqrt(batuketa);
 }
 
 
@@ -59,20 +55,20 @@ void talde_gertuena (int elekop, float elem[][ALDAKOP], float zent[][ALDAKOP], i
   double unekoa = 0; 
 double dist = 0;
 double posizioa = 0;
+double taldea = 0;
   // EGITEKO
   //  sailka: elementu bakoitzaren zentroide hurbilena, haren "taldea" 
-  for (i= 0; i < elekop; i++) {
-	dist = distantzia_genetikoa(elem[i], zent[j]);
-       for (j=0; j < taldekop; j++){
-        if ( dist > distantzia_genetikoa(elem[i], zent[j])){
-		dist = distantzia_genetikoa(elem[i], zent[j]);
-		posizioa = j;
-}       
-       }
- 	sailka[i] = posizioa;
-posizioa = 0;
-    }
-
+  for (i = 0; i < elekop; i++){
+	double minimoa = 9999;
+	for (j = 0; j < taldekop; j ++){
+	unekoa = distantzia_genetikoa(&elem[i][0], &zent[j][0]);
+	if (unekoa < minimoa){
+	minimoa = unekoa;
+	taldea = j;
+	}
+}
+sailka[i] = taldea; 
+}
  }
 /* 3 - Egindako sailkapenaren balidazioa: taldeen trinkotasuna eta zentroideen trinkotasuna
        CVI indizea kalkulatzen da
@@ -104,13 +100,13 @@ double balidazioa (float elem[][ALDAKOP], struct taldeinfo *kideak, float zent[]
 	  {
 	   for(j = 0 ; j < kideak->kop ; j++)
    {
-     gehiketa = gehiketa + distantzia_genetikoa(&zent[i][0], &elem[j][0]);
+     gehiketa = gehiketa + distantzia_genetikoa(&elem[i][0], &elem[j][0]);
      gehiketaZentroide = gehiketaZentroide + distantzia_genetikoa(&zent[i][0], &zent[j][0]);
      
    }
   }
   bb = gehiketa / (kideak->kop * ALDAKOP);
-  bbZentroide = gehiketaZentroide / (kideak->kop * ALDAKOP );
+  bbZentroide = gehiketaZentroide / (kideak->kop*kideak->kop );
 // Kalkulatu zentroideen trinkotasuna: zentroideen arteko distantzien batezbestekoa
   // ================================================================================
 
