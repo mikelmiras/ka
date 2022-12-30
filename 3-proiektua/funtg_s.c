@@ -87,14 +87,15 @@ double balidazioa (float elem[][ALDAKOP], struct taldeinfo *kideak, float zent[]
   // EGITEKO
 	int n = 0;
 	double batuketa = 0;
-double batuketa_totala = 0;
+float batuketa_totala = 0.0f;
+float kop;
   // Kalkulatu taldeen trinkotasuna: kideen arteko distantzien batezbestekoa
   // =======================================================================
   
   for ( int i = 0; i < taldekop; i++) {
 	batuketa_totala = 0;
+	kop = kideak[i].kop;
 	if (kideak[i].kop > 1){
-
 	for (int j = 0; j < kideak[i].kop; j++){
 	batuketa = 0;
 		for (int k = 0; k < kideak[i].kop; k++){
@@ -103,10 +104,10 @@ double batuketa_totala = 0;
 		batuketa = batuketa + distantzia_genetikoa(&elem[elem1_ind][0], &elem[elem2_ind][0]);
 		
 }
-	batuketa_totala = batuketa_totala + (batuketa / (kideak[i].kop-1));
+	batuketa_totala = batuketa_totala + (batuketa / kop);
 }
 	
-	talde_trinko[i] = batuketa_totala / (kideak[i].kop-1);
+	talde_trinko[i] = batuketa_totala / kop;
 }else{
 	talde_trinko[i] = 0;
 }
@@ -148,7 +149,9 @@ max = zentroide_trink[i];
 batuketa_cvi += (zentroide_trink[i] - talde_trinko[i])/ max;
 
 }
-double zatiketa = 1 / taldekop;
+
+double zatiketa = (float) 1 / (float) taldekop;
+ 
 cvi = zatiketa * batuketa_cvi;
 return cvi;
 }
