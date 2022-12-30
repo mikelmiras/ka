@@ -45,7 +45,7 @@ return sqrt(batuketa);
                  zent     taldekop x ALDAKOP tamainako matrizea
        Irteera:  sailka   EMAX tamainako bektorea, elementu bakoitzari dagokion taldea
 ******************************************************************************************/
-
+#pragma omp parallel schedule (runtime)
 void talde_gertuena (int elekop, float elem[][ALDAKOP], float zent[][ALDAKOP], int *sailka)
 {
   // EGITEKO
@@ -82,7 +82,7 @@ sailka[i] = taldea;
        Irteera:  cvi indizea
                  talde_trinko taldeen trinkotasuna
 ******************************************************************************************/
-
+#pragma omp parallel schedule(runtime)
 double balidazioa (float elem[][ALDAKOP], struct taldeinfo *kideak, float zent[][ALDAKOP], float *talde_trinko)
 {
 
