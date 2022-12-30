@@ -100,10 +100,10 @@ double batuketa_totala = 0;
 		batuketa = batuketa + distantzia_genetikoa(&elem[elem1_ind][0], &elem[elem2_ind][0]);
 		
 }
-	batuketa_totala = batuketa_totala + (batuketa / kideak[i].kop);
+	batuketa_totala = batuketa_totala + (batuketa / (kideak[i].kop-1));
 }
 	
-	talde_trinko[i] = batuketa_totala / kideak[i].kop;
+	talde_trinko[i] = batuketa_totala / (kideak[i].kop-1);
 }else{
 	talde_trinko[i] = 0;
 }
