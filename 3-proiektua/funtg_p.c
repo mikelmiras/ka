@@ -45,7 +45,7 @@ return sqrt(batuketa);
                  zent     taldekop x ALDAKOP tamainako matrizea
        Irteera:  sailka   EMAX tamainako bektorea, elementu bakoitzari dagokion taldea
 ******************************************************************************************/
-
+#pragma omp parallel schedule (runtime)
 void talde_gertuena (int elekop, float elem[][ALDAKOP], float zent[][ALDAKOP], int *sailka)
 {
   // EGITEKO
@@ -58,8 +58,8 @@ double posizioa = 0;
 double taldea = 0;
   // EGITEKO
   //  sailka: elementu bakoitzaren zentroide hurbilena, haren "taldea" 
+  #pragma omp parallel for private(taldea, i)
   for (i = 0; i < elekop; i++){
-       #pragma omp parallel private(taldea, i, unekoa) shared(minimoa) {
 	double minimoa = 9999;
         #pragma omp parallel for private(j, unekoa)
 	for (j = 0; j < taldekop; j ++){
@@ -69,12 +69,10 @@ double taldea = 0;
 	minimoa = unekoa;
 	taldea = j;
 	}
-	}
 }
 sailka[i] = taldea; 
 }
  }
-}
 /* 3 - Egindako sailkapenaren balidazioa: taldeen trinkotasuna eta zentroideen trinkotasuna
        CVI indizea kalkulatzen da
 
@@ -95,11 +93,12 @@ float batuketa_totala = 0.0f;
 float kop;
   // Kalkulatu taldeen trinkotasuna: kideen arteko distantzien batezbestekoa
   // =======================================================================
-  #pragma omp parallel for private(kop, batuketa) shared(batuketa_totala) reduction(+:batuketa_totala) nowait
+  #pragma omp parallel for private(kop, batuketa) shared(batuketa_totala) reduction(+:batuketa_totala)
   for ( int i = 0; i < taldekop; i++) {
 	batuketa_totala = 0;
 	kop = kideak[i].kop;
 	if (kideak[i].kop > 1){
+	#pragma omp parallel for private(elem1_ind, elem2_ind) shared(batuketa)
 	for (int j = 0; j < kideak[i].kop; j++){
 	batuketa = 0;
 		for (int k = 0; k < kideak[i].kop; k++){
@@ -123,7 +122,7 @@ int i = 0;
 double zentroide_trink [taldekop];
 int j = 0;
 float zentroideen_batuketa = 0;
-#pragma omp parallel for reduction(+:zentroideen_batuketa)
+#pragma omp parallel for shared(zentroideen_batuketa)
 for (i = 0; i < taldekop; i++){
 zentroideen_batuketa = 0;
 
@@ -142,7 +141,7 @@ Kalkulatu CVI indizea
 double cvi = 0;
 double batuketa_cvi = 0;
 double max = 0;
-#pragma omp parallel for reduction(+:batuketa_cvi) shared(max)
+#pragma omp parallel for
 for (int i = 0; i < taldekop; i++){
 
 if (talde_trinko[i] > zentroide_trink[i]){
