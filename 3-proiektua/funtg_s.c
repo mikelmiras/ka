@@ -127,7 +127,7 @@ zentroide_trink[i] = zentroideen_batuketa / taldekop;
 Kalkulatu CVI indizea
  =================
   */
-float cvi = 0.0f;
+double cvi = 0;
 float batuketa_cvi = 0.0f;
 double max = 0;
 for (int i = 0; i < taldekop; i++){
@@ -138,11 +138,13 @@ max = talde_trinko[i];
 {
 max = zentroide_trink[i];
 }
-batuketa_cvi += zentroide_trink[i] - talde_trinko[i]/ max;
-cvi = (1/taldekop-1) * batuketa_cvi;
+batuketa_cvi += (zentroide_trink[i] - talde_trinko[i])/ max;
+cvi = (1/taldekop) * batuketa_cvi;
+printf("CVI batuketa: %7.3f\n", batuketa_cvi);
 // talde_trinko[i] = cvi; (?)
+printf("CVI: %7.3f\n", cvi);
+printf("Taldekop balioa: %d", taldekop);
 
-printf("CVI: %f", cvi);
 }
 }
 
