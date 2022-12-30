@@ -120,8 +120,9 @@ zentroideen_batuketa = 0;
 	for (j = 0; j < taldekop; j++){
 
 	zentroideen_batuketa += distantzia_genetikoa(&zent[i][0], &zent[j][0]);
+
 }
-zentroide_trink[i] = zentroideen_batuketa / taldekop;
+zentroide_trink[i] = zentroideen_batuketa / (taldekop-1);
 
 }
 /*
@@ -129,7 +130,7 @@ Kalkulatu CVI indizea
  =================
   */
 double cvi = 0;
-float batuketa_cvi = 0.0f;
+double batuketa_cvi = 0;
 double max = 0;
 for (int i = 0; i < taldekop; i++){
 
@@ -143,7 +144,6 @@ batuketa_cvi += (zentroide_trink[i] - talde_trinko[i])/ max;
 
 }
 cvi = (1 / taldekop) * batuketa_cvi;
-printf("Batuketa CVI: %7.3f", batuketa_cvi);
 }
 
 /* 4 - Eritasunak analizatzeko funtzioa 
