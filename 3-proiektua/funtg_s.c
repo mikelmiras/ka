@@ -169,6 +169,42 @@ void eritasunen_analisia (struct taldeinfo *kideak, float eri[][ERIMOTA], struct
   // EGITEKO
   // Prozesatu eritasunei buruzko informazioa talde bakoitzean,
   // medianen maximoa/minimoa eta taldea lortzeko
+	float eritasun_prob[EMAX];
+	double minimoa = 999;
+	double maximoa = 0;
+	int ind_1;
+	int med = 0;
+	float aurreko;
+	for (int i = 0; i<ERIKOP; i++){
+	for (int j = 0; j < taldekop; j ++){
+		for (int k = 0; k < kideak[i].kop; k++){
+			ind_1 = kideak[j].osagaiak[k];
+			eritasun_prob[k] = eri[ind_1][i];
+		}
+		if (kideak[j].kop > 1){
+			for (int l = 0; l < kideak[j].kop - 1; l++){
+				for (int m = l + 1; m < kideak[j].kop; m++){
+					if (eritasun_prob[l]>eritasun_prob[m]){
+					aurreko = eritasun_prob[l];
+					eritasun_probabilitatea[l] = eritasun_probabilitatea[m];
+					eritasun_probabilitatea[m] = aurreko;
+					
+					}
+				}
+				
+			}
+			
+			
+		}
+	}
+	}
+	if (kideak[j].kop > 0){
+	med = kideak[j].kop / 2;
+	if (maximoa < eritausn_probabilitatea[med]){
+		maximoa = eritasun_probabilitatea[med];
+		maximo_totala = j;
+	}
+	}
 
 }
 
