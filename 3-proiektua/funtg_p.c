@@ -89,16 +89,16 @@ double balidazioa (float elem[][ALDAKOP], struct taldeinfo *kideak, float zent[]
   // EGITEKO
 	int n = 0;
 	double batuketa = 0;
-	float batuketa_totala = 0.0f;
-	float kop;
+float batuketa_totala = 0.0f;
+float kop;
   // Kalkulatu taldeen trinkotasuna: kideen arteko distantzien batezbestekoa
   // =======================================================================
-  #pragma omp parallel for private(kop) reduction(+:batuketa_totala)
+  #pragma omp parallel for private(kop, batuketa) shared(batuketa_totala)
   for ( int i = 0; i < taldekop; i++) {
 	batuketa_totala = 0;
 	kop = kideak[i].kop;
 	if (kideak[i].kop > 1){
-	#pragma omp parallel for private(elem1_ind, elem2_ind) reduction(+:batuketa)
+	#pragma omp parallel for private(elem1_ind, elem2_ind) shared(batuketa)
 	for (int j = 0; j < kideak[i].kop; j++){
 	batuketa = 0;
 		for (int k = 0; k < kideak[i].kop; k++){
@@ -109,8 +109,7 @@ double balidazioa (float elem[][ALDAKOP], struct taldeinfo *kideak, float zent[]
 }
 	batuketa_totala = batuketa_totala + (batuketa / kop);
 }
-if(kideak[i].kop > 1)
-{
+	
 	talde_trinko[i] = batuketa_totala / kop;
 }else{
 	talde_trinko[i] = 0;
@@ -123,11 +122,12 @@ int i = 0;
 double zentroide_trink [taldekop];
 int j = 0;
 float zentroideen_batuketa = 0;
-#pragma omp parallel for private(i)
+#pragma omp parallel for shared(zentroideen_batuketa)
 for (i = 0; i < taldekop; i++){
 zentroideen_batuketa = 0;
-	#pragma omp parallel for private(j) shared(zentroideen_batuketa, distantzia_genetikoa)
+
 	for (j = 0; j < taldekop; j++){
+
 	zentroideen_batuketa += distantzia_genetikoa(&zent[i][0], &zent[j][0]);
 
 }
@@ -141,18 +141,15 @@ Kalkulatu CVI indizea
 double cvi = 0;
 double batuketa_cvi = 0;
 double max = 0;
-#pragma omp parallel for reduction(+:batuketa_cvi)
+#pragma omp parallel for
 for (int i = 0; i < taldekop; i++){
-#pragma omp critical
-{
-	if (talde_trinko[i] > zentroide_trink[i]){
-		max = talde_trinko[i];
-	}else
-	{
-		max = zentroide_trink[i];
-	}
-}
 
+if (talde_trinko[i] > zentroide_trink[i]){
+max = talde_trinko[i];
+}else
+{
+max = zentroide_trink[i];
+}
 batuketa_cvi += (zentroide_trink[i] - talde_trinko[i])/ max;
 
 }
@@ -299,5 +296,10 @@ return a;
 }else{
 return b;
 }
+<<<<<<< HEAD
 }
+=======
+
+
+>>>>>>> cbc3d654b227d67d91e4bf33f9bdd2eb219dfdc6
 }
