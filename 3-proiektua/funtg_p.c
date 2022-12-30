@@ -93,7 +93,7 @@ float batuketa_totala = 0.0f;
 float kop;
   // Kalkulatu taldeen trinkotasuna: kideen arteko distantzien batezbestekoa
   // =======================================================================
-  #pragma omp parallel for private(kop, batuketa) shared(batuketa_totala)
+  #pragma omp parallel for private(kop, batuketa) shared(batuketa_totala) reduction(+:batuketa_totala)
   for ( int i = 0; i < taldekop; i++) {
 	batuketa_totala = 0;
 	kop = kideak[i].kop;
