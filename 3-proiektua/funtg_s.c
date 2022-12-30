@@ -178,7 +178,7 @@ void eritasunen_analisia (struct taldeinfo *kideak, float eri[][ERIMOTA], struct
 	int maximo_totala = 0;
 	for (int i = 0; i<ERIMOTA; i++){
 	for (int j = 0; j < taldekop; j ++){
-		for (int k = 0; k < kideak[i].kop; k++){
+		for (int k = 0; k < kideak[j].kop; k++){
 			ind_1 = kideak[j].osagaiak[k];
 			eritasun_probabilitatea[k] = eri[ind_1][i];
 		}
@@ -188,8 +188,7 @@ void eritasunen_analisia (struct taldeinfo *kideak, float eri[][ERIMOTA], struct
 					if (eritasun_probabilitatea[l]>eritasun_probabilitatea[m]){
 					aurreko = eritasun_probabilitatea[l];
 					eritasun_probabilitatea[l] = eritasun_probabilitatea[m];
-					eritasun_probabilitatea[m] = aurreko;
-					
+					eritasun_probabilitatea[m] = aurreko;					
 					}
 				}
 				
