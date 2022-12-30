@@ -1,6 +1,6 @@
 /*  KA, Konputagailuen Arkitektura - Informatika Ingeniaritza, 2. maila
     OpenMP laborategia - PROIEKTUA
-/*mm*/
+/*Mikel Miras eta Urtats Berrocal*/
     funtg_s.c
     taldegen_s.c programan erabiltzen diren errutinak
 
