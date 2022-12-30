@@ -296,10 +296,6 @@ return a;
 }else{
 return b;
 }
-<<<<<<< HEAD
-}
-=======
 
 
->>>>>>> cbc3d654b227d67d91e4bf33f9bdd2eb219dfdc6
 }
