@@ -12,7 +12,7 @@
 #include <float.h>
 #include <stdio.h>
 #include "definetg.h"		// konstante eta datu-egituren definizioak
-
+#include <omp.h>
 // comment
 
 /* 1 - Bi elementuren arteko distantzia genetikoa kalkulatzeko funtzioa
@@ -58,6 +58,7 @@ double posizioa = 0;
 double taldea = 0;
   // EGITEKO
   //  sailka: elementu bakoitzaren zentroide hurbilena, haren "taldea" 
+  
   for (i = 0; i < elekop; i++){
 	double minimoa = 9999;
 	for (j = 0; j < taldekop; j ++){
@@ -89,9 +90,11 @@ double balidazioa (float elem[][ALDAKOP], struct taldeinfo *kideak, float zent[]
 double batuketa_totala = 0;
   // Kalkulatu taldeen trinkotasuna: kideen arteko distantzien batezbestekoa
   // =======================================================================
+  
   for ( int i = 0; i < taldekop; i++) {
 	batuketa_totala = 0;
-	if (kideak[i].kop > 0){
+	if (kideak[i].kop > 1){
+
 	for (int j = 0; j < kideak[i].kop; j++){
 	batuketa = 0;
 		for (int k = 0; k < kideak[i].kop; k++){
@@ -100,10 +103,10 @@ double batuketa_totala = 0;
 		batuketa = batuketa + distantzia_genetikoa(&elem[elem1_ind][0], &elem[elem2_ind][0]);
 		
 }
-	batuketa_totala = batuketa_totala + (batuketa / (kideak[i].kop));
+	batuketa_totala = batuketa_totala + (batuketa / (kideak[i].kop-1));
 }
 	
-	talde_trinko[i] = batuketa_totala / (kideak[i].kop);
+	talde_trinko[i] = batuketa_totala / (kideak[i].kop-1);
 }else{
 	talde_trinko[i] = 0;
 }
@@ -115,8 +118,10 @@ int i = 0;
 double zentroide_trink [taldekop];
 int j = 0;
 float zentroideen_batuketa = 0;
+
 for (i = 0; i < taldekop; i++){
 zentroideen_batuketa = 0;
+
 	for (j = 0; j < taldekop; j++){
 
 	zentroideen_batuketa += distantzia_genetikoa(&zent[i][0], &zent[j][0]);
@@ -143,8 +148,9 @@ max = zentroide_trink[i];
 batuketa_cvi += (zentroide_trink[i] - talde_trinko[i])/ max;
 
 }
-
-return ((1/taldekop)*batuketa_cvi);
+double zatiketa = 1 / taldekop;
+cvi = zatiketa * batuketa_cvi;
+return cvi;
 }
 
 /* 4 - Eritasunak analizatzeko funtzioa 
