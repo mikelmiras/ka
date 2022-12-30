@@ -58,11 +58,13 @@ double posizioa = 0;
 double taldea = 0;
   // EGITEKO
   //  sailka: elementu bakoitzaren zentroide hurbilena, haren "taldea" 
-  
+  #pragma omp parallel for private(taldea, i)
   for (i = 0; i < elekop; i++){
 	double minimoa = 9999;
+        #pragma omp parallel for private(j, unekoa)
 	for (j = 0; j < taldekop; j ++){
 	unekoa = distantzia_genetikoa(&elem[i][0], &zent[j][0]);
+	 #pragma omp critical
 	if (unekoa < minimoa){
 	minimoa = unekoa;
 	taldea = j;
