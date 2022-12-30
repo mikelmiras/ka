@@ -141,11 +141,7 @@ Kalkulatu CVI indizea
 double cvi = 0;
 double batuketa_cvi = 0;
 double max = 0;
-<<<<<<< HEAD
-#pragma omp parallel for default(none) schedule(runtime) shared(max, batuketa_cvi)
-=======
 #pragma omp parallel for reduction(+:batuketa_cvi) shared(max)
->>>>>>> 3ff1685f817caa26f9e339dc9eef1af143d57817
 for (int i = 0; i < taldekop; i++){
 
 if (talde_trinko[i] > zentroide_trink[i]){
