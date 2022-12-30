@@ -93,7 +93,7 @@ double balidazioa (float elem[][ALDAKOP], struct taldeinfo *kideak, float zent[]
 	float kop;
   // Kalkulatu taldeen trinkotasuna: kideen arteko distantzien batezbestekoa
   // =======================================================================
-  #pragma omp parallel for private(kop, batuketa) reduction(+:batuketa_totala)
+  #pragma omp parallel for private(kop) reduction(+:batuketa_totala)
   for ( int i = 0; i < taldekop; i++) {
 	batuketa_totala = 0;
 	kop = kideak[i].kop;
