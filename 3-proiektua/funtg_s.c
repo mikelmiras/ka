@@ -25,11 +25,11 @@
 double distantzia_genetikoa (float elem1[], float elem2[])
 {
   int i = 0;
-int batuketa = 0;
+double batuketa = 0;
   // EGITEKO
   //   // kalkulatu bi elementuren arteko distantzia (euklidearra)
      
-	for (i = 0; i < 40; i++){
+	for (i = 0; i < ALDAKOP; i++){
 	batuketa += (elem1[i]-elem2[i])*(elem1[i]-elem2[i]);
 }
 return sqrt(batuketa);
@@ -91,6 +91,7 @@ double batuketa_totala = 0;
   // =======================================================================
   for ( int i = 0; i < taldekop; i++) {
 	batuketa_totala = 0;
+	if (kideak[i].kop > 0){
 	for (int j = 0; j < kideak[i].kop; j++){
 	batuketa = 0;
 		for (int k = 0; k < kideak[i].kop; k++){
@@ -101,7 +102,7 @@ double batuketa_totala = 0;
 }
 	batuketa_totala = batuketa_totala + (batuketa / kideak[i].kop);
 }
-	if (kideak[i].kop > 0){
+	
 	talde_trinko[i] = batuketa_totala / kideak[i].kop;
 }else{
 	talde_trinko[i] = 0;
@@ -131,7 +132,7 @@ double cvi = 0;
 float batuketa_cvi = 0.0f;
 double max = 0;
 for (int i = 0; i < taldekop; i++){
-batuketa_cvi = 0;
+
 if (talde_trinko[i] > zentroide_trink[i]){
 max = talde_trinko[i];
 }else
@@ -139,13 +140,10 @@ max = talde_trinko[i];
 max = zentroide_trink[i];
 }
 batuketa_cvi += (zentroide_trink[i] - talde_trinko[i])/ max;
-cvi = (1/taldekop) * batuketa_cvi;
-printf("CVI batuketa: %7.3f\n", batuketa_cvi);
-// talde_trinko[i] = cvi; (?)
-printf("CVI: %7.3f\n", cvi);
-printf("Taldekop balioa: %d", taldekop);
 
 }
+cvi = (1 / taldekop) * batuketa_cvi;
+printf("Batuketa CVI: %7.3f", batuketa_cvi);
 }
 
 /* 4 - Eritasunak analizatzeko funtzioa 
