@@ -74,6 +74,7 @@ double taldea = 0;
 sailka[i] = taldea; 
 }
  }
+}
 /* 3 - Egindako sailkapenaren balidazioa: taldeen trinkotasuna eta zentroideen trinkotasuna
        CVI indizea kalkulatzen da
 
