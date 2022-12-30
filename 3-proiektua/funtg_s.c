@@ -1,6 +1,6 @@
 /*  KA, Konputagailuen Arkitektura - Informatika Ingeniaritza, 2. maila
     OpenMP laborategia - PROIEKTUA
-/*Mikel Miras eta Urtats Berrocal*/
+
     funtg_s.c
     taldegen_s.c programan erabiltzen diren errutinak
 
@@ -83,55 +83,78 @@ sailka[i] = taldea;
 
 double balidazioa (float elem[][ALDAKOP], struct taldeinfo *kideak, float zent[][ALDAKOP], float *talde_trinko)
 {
-    int taldekop = /* number of groups */;
 
-    for (int i = 0; i < taldekop; i++) {
-        double sum_distances = 0;
-        int num_pairs = 0;
+  // EGITEKO
+	int n = 0;
+	double batuketa = 0;
+float batuketa_totala = 0.0f;
+float kop;
+  // Kalkulatu taldeen trinkotasuna: kideen arteko distantzien batezbestekoa
+  // =======================================================================
+  
+  for ( int i = 0; i < taldekop; i++) {
+	batuketa_totala = 0;
+	kop = kideak[i].kop;
+	if (kideak[i].kop > 1){
+	for (int j = 0; j < kideak[i].kop; j++){
+	batuketa = 0;
+		for (int k = 0; k < kideak[i].kop; k++){
+		int elem1_ind  = kideak[i].osagaiak[j];
+		int elem2_ind = kideak[i].osagaiak[k];
+		batuketa = batuketa + distantzia_genetikoa(&elem[elem1_ind][0], &elem[elem2_ind][0]);
+		
+}
+	batuketa_totala = batuketa_totala + (batuketa / kop);
+}
+	
+	talde_trinko[i] = batuketa_totala / kop;
+}else{
+	talde_trinko[i] = 0;
+}
+}  
 
-        if (kideak[i].kop > 1) {
-            for (int j = 0; j < kideak[i].kop; j++){
-                for (int k = j + 1; k < kideak[i].kop; k++){
-                    int elem1_ind  = kideak[i].osagaiak[j];
-                    int elem2_ind = kideak[i].osagaiak[k];
-                    double distance = distantzia_genetikoa(&elem[elem1_ind][0], &elem[elem2_ind][0]);
-                    sum_distances += distance;
-                    num_pairs++;
-                }
-            }
+// Kalkulatu zentroideen trinkotasuna: zentroideen arteko distantzien batezbestekoa
+  // ================================================================================
+int i = 0;
+double zentroide_trink [taldekop];
+int j = 0;
+float zentroideen_batuketa = 0;
 
-            // Calculate the average distance
-            double avg_distance = sum_distances / num_pairs;
-            talde_trinko[i] = avg_distance;
-        } else {
-            talde_trinko[i] = 0;
-        }
-    }
+for (i = 0; i < taldekop; i++){
+zentroideen_batuketa = 0;
 
-    // Calculate the average distance between centroids
-    double zentroide_trink[taldekop];
-    for (int i = 0; i < taldekop; i++){
-        double sum_distances = 0;
-        int num_pairs = 0;
+	for (j = 0; j < taldekop; j++){
 
-        for (int j = 0; j < taldekop; j++){
-            if (i != j) {
-                double distance = distantzia_genetikoa(&zent[i][0], &zent[j][0]);
-                sum_distances += distance;
-                num_pairs++;
-            }
-        }
+	zentroideen_batuketa += distantzia_genetikoa(&zent[i][0], &zent[j][0]);
 
-        // Calculate the average distance
-        double avg_distance = sum_distances / num_pairs;
-        zentroide_trink[i] = avg_distance;
-    }
+}
+zentroide_trink[i] = zentroideen_batuketa / (taldekop-1);
 
-    // Return the average of the group and centroid distances
-	double zatiketa = (float) 1 / (float) taldekop;
-	return zatiketa * sum_distances;
+}
+/*
+Kalkulatu CVI indizea
+ =================
+  */
+double cvi = 0;
+double batuketa_cvi = 0;
+double max = 0;
+for (int i = 0; i < taldekop; i++){
+
+if (talde_trinko[i] > zentroide_trink[i]){
+max = talde_trinko[i];
+}else
+{
+max = zentroide_trink[i];
+}
+batuketa_cvi += (zentroide_trink[i] - talde_trinko[i])/ max;
+
 }
 
+double zatiketa = (float) 1 / (float) taldekop;
+ 
+cvi = zatiketa * batuketa_cvi;
+return cvi;
+}
 
 /* 4 - Eritasunak analizatzeko funtzioa 
 
